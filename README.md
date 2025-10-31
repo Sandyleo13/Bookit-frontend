@@ -1,73 +1,321 @@
-# React + TypeScript + Vite
+# 🌍 BookIt — Experiences & Slot Booking Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fullstack web application where users can explore experiences, view details, select time slots, and complete bookings seamlessly — built with **React + TypeScript (Vite)** for the frontend and **Node.js + Express + MySQL** for the backend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## React Compiler
+- **Frontend:** [https://bookit-frontend-jnt4.vercel.app](https://bookit-frontend-jnt4.vercel.app)
+- **Backend (API):** [https://bookit-backend-production-6a3c.up.railway.app](https://bookit-backend-production-6a3c.up.railway.app)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📸 Project Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**BookIt** is a full-stack travel experience booking system.  
+Users can:
+- Browse curated experiences
+- View detailed information & pricing
+- Select available dates and time slots
+- Apply promo codes for discounts
+- Confirm and complete bookings
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Admins (or testers) can view bookings directly from the backend API or database.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🧠 Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| **Frontend** | React + TypeScript (Vite) |
+| **Styling** | TailwindCSS + ShadCN UI |
+| **State Management** | React Hooks |
+| **API Calls** | Axios |
+| **Backend** | Node.js + Express |
+| **Database** | MySQL (Hosted on Railway) |
+| **Hosting** | Frontend → Vercel / Backend → Railway |
+| **Version Control** | GitHub |
+
+---
+
+## 🧩 Folder Structure
+
+```
+BookIt/
+├── Backend/
+│   ├── src/
+│   │   ├── config/db.ts
+│   │   ├── controllers/
+│   │   │   └── bookingController.ts
+│   │   ├── routes/
+│   │   │   ├── bookingRoutes.ts
+│   │   │   └── experienceRoutes.ts
+│   │   └── index.ts
+│   ├── package.json
+│   └── tsconfig.json
+│
+└── Frontend/
+    ├── src/
+    │   ├── pages/
+    │   │   ├── Home.tsx
+    │   │   ├── Details.tsx
+    │   │   ├── Checkout.tsx
+    │   │   └── Result.tsx
+    │   ├── components/
+    │   └── main.tsx
+    ├── package.json
+    └── vite.config.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Environment Variables
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Frontend (`.env`)
 ```
+VITE_API_BASE_URL=https://bookit-backend-production-6a3c.up.railway.app
+```
+
+### Backend (`.env`)
+```
+DB_HOST=containers-us-west-99.railway.app
+DB_USER=root
+DB_PASSWORD=********
+DB_NAME=railway
+PORT=8000
+```
+
+---
+
+## 🖥️ Local Setup
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/Sandyleo13/Bookit-frontend.git
+git clone https://github.com/Sandyleo13/Bookit-backend.git
+```
+
+### 2️⃣ Install dependencies
+```bash
+# Frontend
+cd Frontend
+npm install
+
+# Backend
+cd ../Backend
+npm install
+```
+
+### 3️⃣ Configure environment
+Create `.env` files as shown above.
+
+### 4️⃣ Run locally
+```bash
+# Run backend
+npm run dev
+
+# Run frontend
+cd ../Frontend
+npm run dev
+```
+Frontend will run on `http://localhost:5173` and backend on `http://localhost:8000`.
+
+---
+
+## 🧠 API Documentation
+
+### **Base URL**
+```
+https://bookit-backend-production-6a3c.up.railway.app/api
+```
+
+---
+
+### **GET /experiences**
+
+**Description:** Fetch all available experiences.
+
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "title": "Skydiving Adventure",
+    "description": "Experience the thrill of freefall.",
+    "image": "https://images.unsplash.com/...",
+    "price": 2500
+  }
+]
+```
+
+---
+
+### **GET /experiences/:id**
+
+**Description:** Fetch detailed info for a single experience.
+
+**Response:**
+```json
+{
+  "id": 1,
+  "title": "Skydiving Adventure",
+  "description": "Experience the thrill of freefall.",
+  "price": 2500,
+  "slots": ["9:00 AM", "11:00 AM", "1:00 PM"]
+}
+```
+
+---
+
+### **POST /bookings**
+
+**Description:** Create a new booking.
+
+**Request Body:**
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "promo_code": "hd10",
+  "experience_id": 1,
+  "total_price": 2500,
+  "date": "2025-11-01",
+  "time": "09:00 AM"
+}
+```
+
+**Response:**
+```json
+{
+  "message": "✅ Booking created successfully!",
+  "bookingId": "BKG-1761929096246",
+  "insertedId": 5
+}
+```
+
+---
+
+### **GET /bookings**
+
+**Description:** Fetch all bookings (for admin/testing).
+
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "booking_id": "BKG-1761929096246",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "experience_id": 1,
+    "total_price": 2500,
+    "experience_title": "Skydiving Adventure"
+  }
+]
+```
+
+---
+
+### **POST /promo/validate**
+
+**Description:** Validate a promo code (e.g. `hd10` → 10% off).
+
+**Request:**
+```json
+{ "code": "hd10" }
+```
+
+**Response:**
+```json
+{ "valid": true, "discount": 10 }
+```
+
+---
+
+## 💾 Database Schema (MySQL)
+
+```sql
+CREATE TABLE experiences (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255),
+  description TEXT,
+  image VARCHAR(255),
+  price DECIMAL(10,2)
+);
+
+CREATE TABLE bookings (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  booking_id VARCHAR(50),
+  name VARCHAR(255),
+  email VARCHAR(255),
+  promo_code VARCHAR(50),
+  experience_id INT,
+  total_price DECIMAL(10,2) NOT NULL DEFAULT 0,
+  date DATE,
+  time VARCHAR(50),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (experience_id) REFERENCES experiences(id)
+);
+```
+
+---
+
+## 🧾 Booking Flow
+
+1. **Home Page** → Fetch experiences dynamically  
+2. **Details Page** → Select slot/date  
+3. **Checkout Page** → Enter details, apply promo, confirm  
+4. **Result Page** → Show confirmation or failure message  
+
+Data flow:
+```
+Frontend → Backend API → MySQL Database → Success Message
+```
+
+---
+
+## 🧪 Testing with cURL
+
+```bash
+curl -X POST https://bookit-backend-production-6a3c.up.railway.app/api/bookings \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Tester","email":"test@example.com","experience_id":1,"total_price":1500}'
+```
+
+---
+
+## 🧰 Deployment Summary
+
+| Layer | Platform | URL |
+|--------|-----------|------|
+| **Frontend** | Vercel | [https://bookit-frontend-jnt4.vercel.app](https://bookit-frontend-jnt4.vercel.app) |
+| **Backend** | Railway | [https://bookit-backend-production-6a3c.up.railway.app](https://bookit-backend-production-6a3c.up.railway.app) |
+| **Database** | Railway MySQL | Connected to backend |
+
+---
+
+## 🏆 Highlights
+
+- ✅ Fully responsive, mobile-friendly UI  
+- ✅ End-to-end dynamic data flow (Frontend → Backend → DB)  
+- ✅ Environment variables securely managed  
+- ✅ Cloud deployment (Railway + Vercel)  
+- ✅ Form validation, promo codes, and booking confirmation  
+- ✅ Organized code structure with TypeScript
+
+---
+
+## 🧑‍💻 Author
+
+**Sandipan Das**  
+BSc IT Graduate | Fullstack Developer Intern  
+- 💼 [GitHub](https://github.com/Sandyleo13)  
+- ✉️ sandipandas0816@gmail.com
+
+---
+
+## 🏁 License
+This project is for educational and internship assessment purposes.  
+All images used are royalty-free from Unsplash and Pexels.

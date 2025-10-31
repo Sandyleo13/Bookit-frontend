@@ -1,0 +1,22 @@
+Folder PATH listing
+Volume serial number is A807-94EE
+C:.
+¦   App.css
+¦   App.tsx
+¦   index.css
+¦   main.tsx
+¦   structure.txt
+¦   
++---assets
+¦       react.svg
+¦       
++---components
+¦       Footer.tsx
+¦       Navbar.tsx
+¦       
++---pages
+        Checkout.tsx
+        Details.tsx
+        Home.tsx
+        Result.tsx
+        
